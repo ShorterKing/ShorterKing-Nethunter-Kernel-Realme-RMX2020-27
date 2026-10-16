@@ -25,6 +25,10 @@ Base:    ArrowOS-Devices/android_kernel_realme_RMX2020
 - 🧱 **MITM / routing** — iptables + NAT, NFQUEUE, TPROXY, TUN, bridge, VLAN
 - 📡 Full **Bluetooth stack** (RFCOMM, BNEP, HIDP, HCI USB/UART, VHCI)
 - 🔗 USB serial (FTDI/PL2303/CH341/CP210x) and USB-Ethernet (AX8817x/AX88179/CDCEther/RTL8152)
+- 🛰️ **RTL-SDR** — RTL2832U software-defined radio (`rtl_433`, ADS-B, gqrx) *(v1.1)*
+- 🚗 **CAN bus / SocketCAN** — USB-CAN adapters for automotive work *(v1.1)*
+- 🔐 **WireGuard** — in-kernel VPN module, auto-loaded *(v1.1)*
+- 🔎 **On-device tracing** — kprobes / uprobes / ftrace for Frida & perf *(v1.1)*
 
 ## Supported Wi-Fi adapters
 
@@ -37,7 +41,7 @@ Base:    ArrowOS-Devices/android_kernel_realme_RMX2020
 Download the flashable zip from the [**Releases**](../../releases) page, then in TWRP/recovery:
 
 1. Back up your current `boot` partition.
-2. Flash `nethunter-rmx2020-W8-ipc.zip`.
+2. Flash `nethunter-rmx2020-v1.1.zip`.
 3. Reboot.
 
 The zip flashes the kernel and installs the external Wi-Fi drivers as a systemless module that auto-loads at boot and shows up in `/system/lib/modules` for the NetHunter app.
