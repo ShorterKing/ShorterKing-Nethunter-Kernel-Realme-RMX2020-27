@@ -388,6 +388,19 @@ struct wiphy *wiphy_new_nm(const struct cfg80211_ops *ops, int sizeof_priv,
 	struct cfg80211_registered_device *rdev;
 	int alloc_size;
 
+	/*
+	 * The internal Wi-Fi driver (vendor wlan_drv_gen4m.ko) is a binary
+	 * built against the 4.14.141 cfg80211_ops layout and force-loaded on
+	 * this kernel. A stable merge that inserts an op shifts every later
+	 * slot, and the kernel then calls the wrong function (WPA3/SAE
+	 * external_auth ran off the end of the driver's table and crashed).
+	 * Keep the layout frozen: fail the build if it changes.
+	 */
+	BUILD_BUG_ON(offsetof(struct cfg80211_ops, start_radar_detection) != 656);
+	BUILD_BUG_ON(offsetof(struct cfg80211_ops, update_ft_ies) != 664);
+	BUILD_BUG_ON(offsetof(struct cfg80211_ops, external_auth) != 816);
+	BUILD_BUG_ON(sizeof(struct cfg80211_ops) != 824);
+
 	WARN_ON(ops->add_key && (!ops->del_key || !ops->set_default_key));
 	WARN_ON(ops->auth && (!ops->assoc || !ops->deauth || !ops->disassoc));
 	WARN_ON(ops->connect && !ops->disconnect);
